@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@vercel/nft": "^0.17.5"
+    "@vercel/nft": "^0.17.5",
+    "next": "^12.1.0"
   }
 }
