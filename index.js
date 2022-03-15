@@ -74,6 +74,7 @@ async function build() {
 
   // Create Handler
   const handlerPath = path.join(outDir, "index.js");
+  // copy handeler.js for api gateway, handler-edge.js for lambda@edge / cloudfront
   const handler = path.join(__dirname, "dist", "handler.js");
   copy(handler, handlerPath);
 
