@@ -12,10 +12,10 @@ function copy(src, dst) {
   if (fs.lstatSync(src).isDirectory()) {
     // Copy directory
     const files = fs.readdirSync(src);
-    files.forEach(file => {
+    files.forEach((file) => {
       const sourcePath = path.join(src, file);
       copy(sourcePath, path.join(dst, file));
-    })
+    });
   } else {
     // Copy File
     fs.copyFileSync(src, dst);
@@ -23,7 +23,11 @@ function copy(src, dst) {
 }
 
 // Build minimal nextjs app
-async function build() {
+async function build(options) {
+  let { mode } = options;
+  if (!mode) {
+    mode = "edge"; // edge || api
+  }
   const cwd = process.cwd();
   const outDir = path.join(cwd, "lambda");
 
@@ -74,8 +78,11 @@ async function build() {
 
   // Create Handler
   const handlerPath = path.join(outDir, "index.js");
-  // copy handeler.js for api gateway, handler-edge.js for lambda@edge / cloudfront
-  const handler = path.join(__dirname, "dist", "handler.js");
+  const handler = path.join(
+    __dirname,
+    "dist",
+    mode === "edge" ? "handler-edge.js" : "handler.js"
+  );
   copy(handler, handlerPath);
 
   // Get required server handler

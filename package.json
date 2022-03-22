@@ -12,7 +12,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@vendia/serverless-express": "^4.5.4",
     "@vercel/nft": "^0.17.5",
     "esbuild": "^0.14.25",
     "next": "^12.1.0",
