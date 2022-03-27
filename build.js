@@ -23,7 +23,7 @@ function copy(src, dst) {
 }
 
 // Build minimal nextjs app
-async function build(options) {
+async function build(options = {}) {
   let { mode } = options;
   if (!mode) {
     mode = "edge"; // edge || api
@@ -113,4 +113,4 @@ async function build(options) {
   }
 }
 
-build();
+module.exports = build;

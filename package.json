@@ -1,20 +1,30 @@
 {
-  "name": "nextjs-mini",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "next-standalone",
+  "version": "1.0.2",
+  "description": "Next.js standalone builder for serverless or custom server",
+  "bin": "cli.js",
+  "main": "build.js",
+  "engines": {
+    "node": ">=12.17.0"
+  },
+  "files": [
+    "dist",
+    "cli.js",
+    "build.js"
+  ],
   "scripts": {
     "build": "npm run build:edge && npm run build:api-gw",
     "build:api-gw": "esbuild --bundle --minify template/handler.js --platform=node --target=node14 --external:next --outfile=dist/handler.js",
     "build:edge": "esbuild --bundle --minify template/handler-edge.js --platform=node --target=node14 --external:next --outfile=dist/handler-edge.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Sucipto",
+  "license": "MIT",
   "devDependencies": {
-    "@vercel/nft": "^0.17.5",
     "esbuild": "^0.14.25",
-    "next": "^12.1.0",
     "serverless-http": "^2.7.0"
+  },
+  "dependencies": {
+    "@vercel/nft": "^0.18.0"
   }
 }

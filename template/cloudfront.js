@@ -108,10 +108,6 @@ class ServerlessRequest extends http.IncomingMessage {
       destroy: Function.prototype,
     });
 
-    if (typeof headers["content-length"] === "undefined") {
-      headers["content-length"] = Buffer.byteLength(body);
-    }
-
     Object.assign(this, {
       ip: remoteAddress,
       complete: true,
@@ -272,30 +268,16 @@ async function mapEvent(event) {
   });
 
   if (requestBodyObject.data) {
-    const type = typeof requestBodyObject.data;
     const isBase64Encoded = requestBodyObject.encoding === "base64";
 
-    if (Buffer.isBuffer(requestBodyObject.data)) {
-      body = requestBodyObject.data;
-    } else if (type === "string") {
-      body = Buffer.from(
-        requestBodyObject.data,
-        isBase64Encoded ? "base64" : "utf8"
-      );
-    } else if (type === "object") {
-      body = Buffer.from(JSON.stringify(requestBodyObject.data));
-    } else {
-      body = Buffer.alloc(0);
-    }
-
-    // body = Buffer.from(
-    //   requestBodyObject.data,
-    //   isBase64Encoded ? "base64" : "utf8"
-    // );
-    // headers["content-length"] = Buffer.byteLength(
-    //   body,
-    //   isBase64Encoded ? "base64" : "utf8"
-    // );
+    body = Buffer.from(
+      requestBodyObject.data,
+      isBase64Encoded ? "base64" : "utf8"
+    );
+    headers["content-length"] = Buffer.byteLength(
+      body,
+      isBase64Encoded ? "base64" : "utf8"
+    );
   }
 
   const path = url.format({
