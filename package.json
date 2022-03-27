@@ -1,7 +1,10 @@
 {
   "name": "next-standalone",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Next.js standalone builder for serverless or custom server",
+  "repository": "suciptoid/next-standalone",
+  "author": "Sucipto",
+  "license": "MIT",
   "bin": "cli.js",
   "main": "build.js",
   "engines": {
@@ -18,8 +21,6 @@
     "build:edge": "esbuild --bundle --minify template/handler-edge.js --platform=node --target=node14 --external:next --outfile=dist/handler-edge.js"
   },
   "keywords": [],
-  "author": "Sucipto",
-  "license": "MIT",
   "devDependencies": {
     "esbuild": "^0.14.25",
     "serverless-http": "^2.7.0"

@@ -24,7 +24,7 @@ function copy(src, dst) {
 
 // Build minimal nextjs app
 async function build(options = {}) {
-  let { mode } = options;
+  let { mode, copyStatic } = options;
   if (!mode) {
     mode = "edge"; // edge || api
   }
@@ -107,9 +107,12 @@ async function build(options = {}) {
   fs.writeFileSync(handlerPath, handlerFileReplaced);
 
   // Copy Static Files
-  const staticDir = path.join(cwd, ".next", "static");
-  if (fs.existsSync(staticDir)) {
-    copy(staticDir, path.join(outDir, ".next", "static"));
+  if (copyStatic) {
+    const staticDir = path.join(cwd, ".next", "static");
+    if (fs.existsSync(staticDir)) {
+      console.log("Copying static files...");
+      copy(staticDir, path.join(outDir, ".next", "static"));
+    }
   }
 }
 
